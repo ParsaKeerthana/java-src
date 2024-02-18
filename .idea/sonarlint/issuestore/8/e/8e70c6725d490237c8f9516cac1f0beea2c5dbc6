@@ -1,0 +1,8 @@
+
+?
+java:S2189""Add an end condition to this loop.(›ûÅò8Õ—†ÂÛ1
+T
+java:S2589"7Remove this expression which always evaluates to "true"(›ûÅò8ôíˆÂÛ1
+L	java:S106"+Replace this use of System.out by a logger.(±Ë–ûÿÿÿÿ8ş×…ÂÛ1
+G	java:S106"+Replace this use of System.out by a logger.(ÅÆõÚ8ÿ×…ÂÛ1
+L	java:S1066"+Replace this use of System.err by a logger.(Ööµ¼şÿÿÿÿ8Ï°‡ÂÛ1
