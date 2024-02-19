@@ -3,6 +3,7 @@ package socket;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.nio.ByteBuffer;
 
 /*
  * Basic client for sending messages to a server.
@@ -67,6 +68,9 @@ public class BasicClient {
         long startTime = System.currentTimeMillis();
 
         try (OutputStream outputStream = clt.getOutputStream()) {
+            byte[] lengthHeader = ByteBuffer.allocate(4).putInt(buffer.length).array();
+            // Send the header first
+            outputStream.write(lengthHeader);
             while (totalBytesSent < totalBytesToSend) {
                 outputStream.write(buffer, 0, (int)Math.min(buffer.length, totalBytesToSend - totalBytesSent));
                 totalBytesSent += Math.min(buffer.length, totalBytesToSend - totalBytesSent);

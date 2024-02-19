@@ -3,6 +3,7 @@ package socket;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.nio.ByteBuffer;
 
 public class SessionHandler extends Thread {
     private Socket connection;
@@ -33,8 +34,16 @@ public class SessionHandler extends Thread {
         }
 
         try (BufferedInputStream inputStream = new BufferedInputStream(connection.getInputStream())) {
-            byte[] buffer = new byte[1024 * 1024]; // 1 MB buffer
-            int bytesRead;
+            // Read the message length header (4 bytes)
+            byte[] lengthHeader = new byte[4];
+            int bytesRead = inputStream.read(lengthHeader);
+            if (bytesRead != 4) {
+                System.err.println("Invalid message length header");
+                return;
+            }
+            // Convert the length header bytes to an integer
+            int messageLength = ByteBuffer.wrap(lengthHeader).getInt();
+            byte[] buffer = new byte[messageLength]; // 1MB buffer
             long totalBytesReceived = 0;
             long startTime = System.currentTimeMillis();
 
